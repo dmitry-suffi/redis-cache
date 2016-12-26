@@ -9,5 +9,8 @@
         "psr-4": {
             "suffi\\RedisCache\\": "src\\"
         }
+    },
+    "require": {
+        "psr/cache": "*"
     }
 }
