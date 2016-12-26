@@ -1,0 +1,13 @@
+{
+    "name": "dmitry-suffi/redis-cache",
+    "description": "Redis cache",
+    "license": "MIT",
+    "keywords": ["redis", "session"],
+    "homepage": "https://github.com/dmitry-suffi/redis-cache",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "suffi\\RedisCache\\": "src\\"
+        }
+    }
+}
