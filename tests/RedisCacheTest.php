@@ -1,9 +1,11 @@
 <?php
 
+namespace suffi\RedisCache\Tests;
+
 use \suffi\RedisCache\CacheItemPool;
 use \suffi\RedisCache\CacheItem;
 
-class RedisSessionHandlerTest extends \PHPUnit\Framework\TestCase
+class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var CacheItemPool
@@ -28,7 +30,7 @@ class RedisSessionHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function getCache()
     {
-        $redis = new Redis();
+        $redis = new \Redis();
         $redis->connect(RedisHost);
         $redis->select(0);
         return new CacheItemPool($redis);
@@ -58,7 +60,6 @@ class RedisSessionHandlerTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->cache->hasItem('key'));
         $this->assertFalse($this->cache->getItem('key'));
         $this->assertEquals($this->cache->getItems(['key']), ['key' => false]);
-
     }
 
     public function testCacheKeys()
@@ -66,12 +67,12 @@ class RedisSessionHandlerTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->cache->hasItem('key1'));
         $this->assertFalse($this->cache->getItem('key1'));
         $this->assertEquals($this->cache->getItems(['key1']), ['key1' => false]);
-        
+
         $items = [];
         for ($i = 0; $i < 100; $i++) {
             $items[$i] = $this->getItem('key' . $i, 'value' . $i);
         }
-             
+
         foreach ($items as $k => $item) {
             $this->assertEquals($this->cache->save($item), 1);
         }
@@ -97,18 +98,17 @@ class RedisSessionHandlerTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($items3['key45']);
 
         foreach ($items as $k => $item) {
-            if (in_array($k, [4,9,45])) {
-                $this->assertFalse($this->cache->hasItem('key' . $k));   
+            if (in_array($k, [4, 9, 45])) {
+                $this->assertFalse($this->cache->hasItem('key' . $k));
             } else {
-                $this->assertTrue($this->cache->hasItem('key' . $k));    
-            }            
+                $this->assertTrue($this->cache->hasItem('key' . $k));
+            }
         }
-        
+
         $this->assertEquals($this->cache->clear(), 1);
 
         foreach ($items as $k => $item) {
             $this->assertFalse($this->cache->hasItem('key' . $k));
         }
-        
     }
 }

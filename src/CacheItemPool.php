@@ -2,7 +2,6 @@
 
 namespace suffi\RedisCache;
 
-
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -77,7 +76,6 @@ class CacheItemPool implements CacheItemPoolInterface
 LUA;
 
         return $this->redis->eval($script, array(self::$cacheKey), 1);
-
     }
 
     /**
@@ -132,6 +130,5 @@ LUA;
      */
     public function commit()
     {
-
     }
 }

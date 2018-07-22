@@ -12,6 +12,7 @@ install:
 
 script:
   - mkdir -p build/logs
+  - php vendor/bin/phpcs --standard=PSR1,PSR2 src tests
   - php vendor/bin/phpunit -c tests/phpunit.xml tests/
 
 after_success:
