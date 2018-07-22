@@ -31,7 +31,12 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     public function getCache()
     {
         $redis = new \Redis();
-        $redis->connect(RedisHost);
+        if (defined('REDIS_HOST')) {
+            $host = REDIS_HOST;
+        } else {
+            $host = 'tcp://127.0.0.1:6379';
+        }
+        $redis->connect($host);
         $redis->select(0);
         return new CacheItemPool($redis);
     }
