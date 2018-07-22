@@ -4,6 +4,7 @@ namespace suffi\RedisCache\Tests;
 
 use \suffi\RedisCache\CacheItemPool;
 use \suffi\RedisCache\CacheItem;
+use suffi\RedisCache\InvalidArgumentException;
 
 class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
@@ -115,5 +116,23 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         foreach ($items as $k => $item) {
             $this->assertFalse($this->cache->hasItem('key' . $k));
         }
+    }
+
+    public function testExceptionNotStringKey()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new CacheItem([]);
+    }
+
+    public function testExceptionEmptyKey()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new CacheItem('');
+    }
+
+    public function testExceptionNotValidKey()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new CacheItem('{}');
     }
 }
