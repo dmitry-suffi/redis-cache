@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!-- see http://www.phpunit.de/wiki/Documentation -->
+<phpunit bootstrap="autoload.php">
+    <testsuites>
+        <testsuite name="tests">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+    </logging>
+</phpunit>

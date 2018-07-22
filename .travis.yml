@@ -1,0 +1,25 @@
+language: php
+
+services:
+  - redis-server
+
+php:
+  - '7.0'
+  - '7.1'
+  - '7.2'
+
+before_install:
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+install:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction
+
+script:
+  - mkdir -p build/logs
+  - php vendor/bin/phpcs --standard=PSR1,PSR2 src tests
+  - php vendor/bin/phpunit -c tests/phpunit.xml tests/
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
+  - travis_retry php vendor/bin/php-coveralls -v
