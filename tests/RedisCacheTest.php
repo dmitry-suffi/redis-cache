@@ -34,7 +34,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         if (defined('REDIS_HOST')) {
             $host = REDIS_HOST;
         } else {
-            $host = '127.0.0.1:6379';
+            $host = '127.0.0.1';
         }
         $redis->connect($host);
         $redis->select(0);
