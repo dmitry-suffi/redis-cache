@@ -126,5 +126,4 @@ class CacheItem implements CacheItemInterface
             throw new InvalidArgumentException(sprintf('Cache key "%s" contains reserved characters {}()/\@:', $key));
         }
     }
-
 }
